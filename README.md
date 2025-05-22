@@ -17,18 +17,18 @@ O projeto é uma api rest implementada em .NET conectada com o banco de dados da
 
 #### Rotas
 
-URL Base -> **http://localhost:5115/**
+URL Base -> **<http://localhost:5115/>**
 
 ##### Filiais
 
-| Método | Rota | Query | Descrição |
-| :----: | :--- | :---: | :-------- |
-| POST   | [/api/filial](localhost:5115/api/filial) | x | Cria uma nova instância de filial |
-| GET    | [/api/filial](localhost:5115/api/filial) | x | Retorna todas as filiais |
-| GET    | [/api/filial/{id}](localhost:5115/api/filial/1) | x | Retorna a filial com o id fornecido |
-| GET    | [/api/filial/search](localhost:5115/api/filial/search?nome=Filial1) | nome: string | Retorna todas as filiais que tem o nome passado na query |
-| PUT    | [/api/filial/{id}](localhost:5115/api/filial/1) | x | Atualiza a filial com o id fornecido |
-| DELETE | [/api/filial/{id}](localhost:5115/api/filial/1) | x | Deleta a filial com o id fornecido |
+| Método | Rota                                                                |    Query     | Descrição                                                |
+| :----: | :------------------------------------------------------------------ | :----------: | :------------------------------------------------------- |
+|  POST  | [/api/filial](localhost:5115/api/filial)                            |      x       | Cria uma nova instância de filial                        |
+|  GET   | [/api/filial](localhost:5115/api/filial)                            |      x       | Retorna todas as filiais                                 |
+|  GET   | [/api/filial/{id}](localhost:5115/api/filial/1)                     |      x       | Retorna a filial com o id fornecido                      |
+|  GET   | [/api/filial/search](localhost:5115/api/filial/search?nome=Filial1) | nome: string | Retorna todas as filiais que tem o nome passado na query |
+|  PUT   | [/api/filial/{id}](localhost:5115/api/filial/1)                     |      x       | Atualiza a filial com o id fornecido                     |
+| DELETE | [/api/filial/{id}](localhost:5115/api/filial/1)                     |      x       | Deleta a filial com o id fornecido                       |
 
 ###### JSON de uma filial
 
@@ -41,14 +41,14 @@ URL Base -> **http://localhost:5115/**
 
 ##### Areas
 
-| Método | Rota | Query | Descrição |
-| :----: | :--- | :---: | :-------- |
-| POST   | [/api/area](localhost:5115/api/area) | x | Cria uma nova instância de area |
-| GET    | [/api/area](localhost:5115/api/area) | x | Retorna todas as areas |
-| GET    | [/api/area/{id}](localhost:5115/api/area/1) | x | Retorna a area com o id fornecido |
-| GET    | [/api/area/search](localhost:5115/api/area/search?filial=Osasco&status=Conserto) | filial: string, status: string | Retorna todas as areas que pertencem a filial e que possuem o mesmo status das queries |
-| PUT    | [/api/area/{id}](localhost:5115/api/area/1) | x | Atualiza a area com o id fornecido |
-| DELETE | [/api/area/{id}](localhost:5115/api/area/1) | x | Deleta a area com o id fornecido |
+| Método | Rota                                                                             |             Query              | Descrição                                                                              |
+| :----: | :------------------------------------------------------------------------------- | :----------------------------: | :------------------------------------------------------------------------------------- |
+|  POST  | [/api/area](localhost:5115/api/area)                                             |               x                | Cria uma nova instância de area                                                        |
+|  GET   | [/api/area](localhost:5115/api/area)                                             |               x                | Retorna todas as areas                                                                 |
+|  GET   | [/api/area/{id}](localhost:5115/api/area/1)                                      |               x                | Retorna a area com o id fornecido                                                      |
+|  GET   | [/api/area/search](localhost:5115/api/area/search?filial=Osasco&status=Conserto) | filial: string, status: string | Retorna todas as areas que pertencem a filial e que possuem o mesmo status das queries |
+|  PUT   | [/api/area/{id}](localhost:5115/api/area/1)                                      |               x                | Atualiza a area com o id fornecido                                                     |
+| DELETE | [/api/area/{id}](localhost:5115/api/area/1)                                      |               x                | Deleta a area com o id fornecido                                                       |
 
 ###### JSON de uma area
 
@@ -64,7 +64,7 @@ URL Base -> **http://localhost:5115/**
 1. Clone o repositório `git clone https://github.com/omininola/sprint1_dotnet.git`
 2. Entre na pasta do projeto `cd sprint1_dotnet\webapi`
 3. Rode o comando `dotnet restore`
-4. E por fim rode o projeto `dotnet run` 
+4. E por fim rode o projeto `dotnet run`
 
 ---
 
@@ -98,14 +98,33 @@ ENTRYPOINT ["dotnet", "webapi.dll"]
 
 ## Azure CLI
 
+### Criação do Grupo de Recursos
+
+```bash
+az group create \
+ --name rg_sprint1_cloud \
+ --location brazilsouth
+```
+
 ### Criação da VM
 
 ```bash
-
+az vm create \
+ --name vm_sprint1_cloud \
+ --resource-group rg_sprint1_cloud \
+ --image Ubuntu2204 \
+ --size Standard_B2s \
+ --authentication-type password \
+ --admin-username fiap \
+ --admin-password Fiap@123Cloud
 ```
 
 ### Abertura de portas
 
 ```bash
-
+az vm open-port \
+ --name vm_sprint1_cloud \
+ --resource-group rg_sprint1_cloud \
+ --port 8080
 ```
+
